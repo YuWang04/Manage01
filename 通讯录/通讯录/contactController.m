@@ -32,7 +32,7 @@
     [super viewDidLoad];
   //去除tableView多余的线
     [self clearExtraLine:self.tableView];
-    self.view.backgroundColor = [UIColor orangeColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     }
 
 #pragma mark - Table view data source
