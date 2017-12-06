@@ -1,6 +1,6 @@
 //
-//  textUITests.m
-//  textUITests
+//  myUITests.m
+//  myUITests
 //
 //  Created by xtjsb on 17/12/6.
 //  Copyright © 2017年 xgf. All rights reserved.
@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface textUITests : XCTestCase
+@interface myUITests : XCTestCase
 
 @end
 
-@implementation textUITests
+@implementation myUITests
 
 - (void)setUp {
     [super setUp];
