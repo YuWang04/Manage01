@@ -68,6 +68,7 @@
 }
 //结束动画
 -(void)stopAnimation{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [self.layer removeAllAnimations];
     [self removeFromSuperview];
     

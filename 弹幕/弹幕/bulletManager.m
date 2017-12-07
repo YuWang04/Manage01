@@ -15,12 +15,32 @@
 @property(nonatomic,strong)NSMutableArray *bulletComments;
 //存储弹幕view的数组变量
 @property(nonatomic,strong)NSMutableArray *bulletViews;
+@property BOOL bStopAnimation;
 @end
 @implementation bulletManager
+-(instancetype)init{
+    if(self = [super init]){
+        self.bStopAnimation = YES;
+    }
+    return self;
+}
 -(void)stop{
-    
+    if(_bStopAnimation){
+        return;
+    }
+    self.bStopAnimation = YES;
+    [self.bulletViews enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        bulletView *view =obj;
+        [view stopAnimation];
+        view = nil;
+    }];
+    [self.bulletViews removeAllObjects];
 }
 -(void)start{
+    if(!_bStopAnimation){
+        return;
+    }
+    self.bStopAnimation = NO;
     [self.bulletComments removeAllObjects];
     [self.bulletComments addObjectsFromArray:self.datasource];
     
@@ -44,12 +64,18 @@
     }
 }
 -(void)createBulletView:(NSString*)comment tarjectroy:(int) tarjectroy{
+    if(self.bStopAnimation){
+        return;
+    }
     bulletView *view = [[bulletView alloc]initWithConmment:comment];
     view.tarjectroy = tarjectroy;
     [self.bulletViews addObject:view];
     __weak typeof (view) weakView = view;
     __weak typeof (self) myself = self;
     view.moveStausblock=^(MoveStatus status){
+        if(self.bStopAnimation){
+            return;
+        }
         switch (status) {
             case Start:{
                 //弹幕开始进入屏幕，姜View加入到弹幕管理的变量中bulletviews
@@ -73,6 +99,7 @@
                 }
                 if(myself.bulletViews.count ==0){
                     //说明屏幕上没有弹幕，开始循环滚动
+                    self.bStopAnimation = YES;
                     [myself start];
                 }
                 break;

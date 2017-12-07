@@ -26,11 +26,22 @@
     [btn setTitleColor:[UIColor blueColor] forState:(UIControlStateNormal)];
     [btn setTitle:@"start" forState:UIControlStateNormal];
     btn.frame = CGRectMake(100, 100, 60, 40);
-    [btn addTarget:self action:@selector(Click) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(ClickStart) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
+    
+    UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn2 setTitleColor:[UIColor blueColor] forState:(UIControlStateNormal)];
+    [btn2 setTitle:@"stop" forState:UIControlStateNormal];
+    btn2.frame = CGRectMake(100, 150, 60, 40);
+    [btn2 addTarget:self action:@selector(ClickStop) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
 }
 
--(void)Click{
+
+-(void)ClickStop{
+    [self.manager stop];
+}
+-(void)ClickStart{
     [self.manager start];
     NSLog(@"qqwq");
 }
