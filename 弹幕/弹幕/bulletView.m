@@ -8,8 +8,10 @@
 
 #import "bulletView.h"
 #define Padding  10 //间距
+#define PhotoH 30
 @interface bulletView()
 @property(nonatomic,strong)UILabel* lbComment;//弹幕label
+@property(nonatomic,strong)UIImageView* photoIgv;
 @end
 
 
@@ -19,12 +21,18 @@
 -(instancetype)initWithConmment:(NSString*)comment{
     if(self = [super init]){
         self.backgroundColor = [UIColor redColor];
+        self.layer.borderWidth = 15;
         //根据传入的comment计算弹幕实际宽度
         NSDictionary *attr = @{NSFontAttributeName:[UIFont systemFontOfSize:14]};
         CGFloat width = [comment sizeWithAttributes:attr].width;
-        self.bounds = CGRectMake(0, 0, width + 2 * Padding, 30);
+        self.bounds = CGRectMake(0, 0, width + 2 * Padding+PhotoH, 30);
         self.lbComment.text = comment;
-        self.lbComment.frame = CGRectMake(Padding, 0, width, 30);
+        self.lbComment.frame = CGRectMake(Padding+PhotoH, 0, width, 30);
+        self.photoIgv.frame = CGRectMake(-Padding, -Padding , Padding+PhotoH, Padding+PhotoH);
+        self.layer.cornerRadius = (Padding+PhotoH)/2;
+        self.layer.borderColor = [UIColor purpleColor].CGColor;
+        self.layer.borderWidth = 1;
+        self.photoIgv.image = [UIImage imageNamed:@"0_1.jpg"];
     }
     return self;
 }
@@ -84,12 +92,14 @@
     }
     return _lbComment;
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+-(UIImageView*)photoIgv{
+    if(!_photoIgv){
+        _photoIgv = [UIImageView new];
+        _photoIgv.clipsToBounds = YES;
+        _photoIgv.contentMode = UIViewContentModeScaleAspectFill;
+        [self addSubview:_photoIgv];
+    }
+    return _photoIgv;
 }
-*/
 
 @end
