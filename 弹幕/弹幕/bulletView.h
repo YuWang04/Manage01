@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+typedef NS_ENUM(NSInteger,MoveStatus){
+    Start,
+    Enter,
+    End
+};
 @interface bulletView : UIView
 @property(nonatomic,assign)int tarjectroy;//弹道
-@property(nonatomic,copy)void(^moveStausblock)();//弹幕的状态
+@property(nonatomic,copy)void(^moveStausblock)(MoveStatus status);//弹幕的状态
 //初始化弹幕
 -(instancetype)initWithConmment:(NSString*)comment;
 //开始动画

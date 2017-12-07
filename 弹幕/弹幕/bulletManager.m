@@ -28,8 +28,8 @@
 }
 //初始化弹幕，随机分配弹幕轨迹
 -(void)initBulletComments{
-    NSMutableArray *tarjectroys = [NSMutableArray arrayWithArray:@[@(0),@(1),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9)]];
-    for(int i = 0;i < 9;i++){
+    NSMutableArray *tarjectroys = [NSMutableArray arrayWithArray:@[@(0),@(1),@(2)]];
+    for(int i = 0;i < 3;i++){
         if(self.bulletComments.count > 0){
         //通过随机数获取弹幕
         NSInteger index = arc4random()%tarjectroys.count;
@@ -49,20 +49,60 @@
     [self.bulletViews addObject:view];
     __weak typeof (view) weakView = view;
     __weak typeof (self) myself = self;
-    view.moveStausblock=^{
-        //移出屏幕后销毁弹幕并释放资源
-        [weakView stopAnimation];
-        [myself.bulletViews removeObject:weakView];
+    view.moveStausblock=^(MoveStatus status){
+        switch (status) {
+            case Start:{
+                //弹幕开始进入屏幕，姜View加入到弹幕管理的变量中bulletviews
+                [myself.bulletViews addObject:weakView];
+                break;
+            }
+            case Enter:{
+                //弹幕完全进入屏幕，判断是否还有其他内容，若果有则在弹幕轨迹中创建一个弹幕
+                NSString *comment = [myself nextComment];
+                if(comment){
+                    [myself createBulletView:comment tarjectroy:tarjectroy];
+                }
+                
+                break;
+            }
+            case End:{
+                //弹幕完全飞出屏幕后从bulletViews中删除，释放资源
+                if([myself.bulletViews containsObject:weakView]){
+                    [weakView stopAnimation];
+                    [myself.bulletViews removeObject:weakView];
+                }
+                if(myself.bulletViews.count ==0){
+                    //说明屏幕上没有弹幕，开始循环滚动
+                    [myself start];
+                }
+                break;
+            }
+            default:
+                break;
+        }
+//        //移出屏幕后销毁弹幕并释放资源
+//        [weakView stopAnimation];
+//        [myself.bulletViews removeObject:weakView];
     };
     if(self.generteViewBlock){
         self.generteViewBlock(view);
     }
     
 }
+-(NSString*)nextComment{
+    if(self.bulletComments.count == 0){
+        return nil;
+    }
+    NSString *comment = [self.bulletComments firstObject];
+    if(comment){
+        [self.bulletComments removeObjectAtIndex:0];
+    }
+    return comment;
+}
 -(NSMutableArray*)datasource{
     if(!_datasource){
-        _datasource = [NSMutableArray arrayWithArray:@[@"弹幕1。。。。。",
-                                                       @"弹幕2。。。",
+        _datasource = [NSMutableArray arrayWithArray:@[@"弹幕1~~~~~",
+                                                       @"弹幕2~~~~~~~~~~~~~~~~~~~~~~~~",
                                                        @"弹幕3~~~~~~~~~~~~~~~~~",
                                                        @"弹幕4——————————————",
                                                        @"弹幕5~~~~~~~~~~~",

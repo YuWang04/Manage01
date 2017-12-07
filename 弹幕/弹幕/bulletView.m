@@ -35,6 +35,21 @@
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat duration = 4.0;
     CGFloat wholeWidth = screenWidth + CGRectGetWidth(self.bounds);
+    //弹幕开始
+    if(self.moveStausblock){
+        self.moveStausblock(Start);
+    }
+    //t=s/v
+     CGFloat speed = wholeWidth/duration;
+    CGFloat enterDuration = CGRectGetWidth(self.bounds)/speed;
+   
+    [self performSelector:@selector(enterScreen) withObject:nil afterDelay:enterDuration];
+    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(enterDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        if(self.moveStausblock){
+//            self.moveStausblock(Enter);
+//        }
+//    });
     __block CGRect frame = self.frame;
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveLinear  animations:^{
         frame.origin.x -= wholeWidth;
@@ -42,9 +57,14 @@
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
         if(self.moveStausblock){
-            self.moveStausblock();
+            self.moveStausblock(End);
         }
     }];
+}
+-(void)enterScreen{
+    if(self.moveStausblock){
+        self.moveStausblock(Enter);
+    }
 }
 //结束动画
 -(void)stopAnimation{
