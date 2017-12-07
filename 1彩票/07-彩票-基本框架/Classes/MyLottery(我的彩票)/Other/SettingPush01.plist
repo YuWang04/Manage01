@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>items</key>
+		<array>
+			<dict>
+				<key>cellType</key>
+				<string>UITableViewCellStyleSubtitle</string>
+				<key>accessoryType</key>
+				<string>UISwitch</string>
+				<key>subTitle</key>
+				<string>每天开奖</string>
+				<key>title</key>
+				<string>双色球</string>
+			</dict>
+			<dict>
+				<key>accessoryType</key>
+				<string>UISwitch</string>
+				<key>subTitle</key>
+				<string>每天开奖</string>
+				<key>title</key>
+                <string>双色球</string>		<key>cellType</key>
+                <string>UITableViewCellStyleSubtitle</string>
+			</dict>
+			<dict>
+				<key>accessoryType</key>
+				<string>UISwitch</string>
+				<key>subTitle</key>
+				<string>每天开奖</string>
+				<key>title</key>
+                <string>双色球</string>		<key>cellType</key>
+                <string>UITableViewCellStyleSubtitle</string>
+			</dict>
+			<dict>
+				<key>accessoryType</key>
+				<string>UISwitch</string>
+				<key>subTitle</key>
+				<string>每天开奖</string>
+				<key>title</key>
+                <string>双色球</string>		<key>cellType</key>
+                <string>UITableViewCellStyleSubtitle</string>
+			</dict>
+			<dict>
+				<key>accessoryType</key>
+				<string>UISwitch</string>
+				<key>subTitle</key>
+				<string>每天开奖</string>
+				<key>title</key>
+                <string>双色球</string>		<key>cellType</key>
+                <string>UITableViewCellStyleSubtitle</string>
+			</dict>
+		</array>
+		<key>header</key>
+		<string>今天天气不错</string>
+	</dict>
+</array>
+</plist>

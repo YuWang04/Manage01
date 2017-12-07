@@ -1,0 +1,11 @@
+//
+//  PrefixHeader.pch
+//  07-彩票-基本框架
+//
+//  Created by Romeo on 15/12/15.
+//  Copyright © 2015年 heima. All rights reserved.
+//
+
+#define kScreenSize [UIScreen mainScreen].bounds
+#define kScreenWidth kScreenSize.size.width
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
