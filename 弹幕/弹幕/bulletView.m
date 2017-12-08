@@ -25,13 +25,19 @@
         //根据传入的comment计算弹幕实际宽度
         NSDictionary *attr = @{NSFontAttributeName:[UIFont systemFontOfSize:14]};
         CGFloat width = [comment sizeWithAttributes:attr].width;
+        //弹幕View的bounds
         self.bounds = CGRectMake(0, 0, width + 2 * Padding+PhotoH, 30);
         self.lbComment.text = comment;
+        //弹幕中label的位置（相对于弹幕view）
         self.lbComment.frame = CGRectMake(Padding+PhotoH, 0, width, 30);
+        //图片的位置（相对于弹幕view）
         self.photoIgv.frame = CGRectMake(-Padding, -Padding , Padding+PhotoH, Padding+PhotoH);
-        self.layer.cornerRadius = (Padding+PhotoH)/2;
-        self.layer.borderColor = [UIColor purpleColor].CGColor;
-        self.layer.borderWidth = 1;
+        //设置图片圆角
+        self.photoIgv.layer.cornerRadius = (Padding+PhotoH)/2;
+        //设置边框的颜色
+        self.layer.borderColor = [UIColor yellowColor].CGColor;
+        //设置边框的宽度
+        self.layer.borderWidth = 0.5;
         self.photoIgv.image = [UIImage imageNamed:@"0_1.jpg"];
     }
     return self;
@@ -92,6 +98,7 @@
     }
     return _lbComment;
 }
+//弹幕图片初始化
 -(UIImageView*)photoIgv{
     if(!_photoIgv){
         _photoIgv = [UIImageView new];
