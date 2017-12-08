@@ -59,7 +59,7 @@
      CGFloat speed = wholeWidth/duration;
     CGFloat enterDuration = CGRectGetWidth(self.bounds)/speed;
    
-    //在弹幕进入屏幕之后，执行enterScreen方法
+    //在弹幕进入屏幕之后，执行enterScreen方法，弹幕开始
     [self performSelector:@selector(enterScreen) withObject:nil afterDelay:enterDuration];
     
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(enterDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -74,7 +74,7 @@
     } completion:^(BOOL finished) {
         //结束后从屏幕上移除
         [self removeFromSuperview];
-        //回调
+        //回调，弹幕结束
         if(self.moveStausblock){
             self.moveStausblock(End);
         }
