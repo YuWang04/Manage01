@@ -68,6 +68,7 @@
       }
     }
 }
+//根据数据和弹幕轨道创建弹幕view
 -(void)createBulletView:(NSString*)comment tarjectroy:(int) tarjectroy{
     if(self.bStopAnimation){
         return;
@@ -134,6 +135,7 @@
     }
     return comment;
 }
+//弹幕数据源
 -(NSMutableArray*)datasource{
     if(!_datasource){
         _datasource = [NSMutableArray arrayWithArray:@[@"大江东去，",
@@ -159,14 +161,14 @@
     }
     return _datasource;
 }
-
+//初始化弹幕使用过程中的数组
 -(NSMutableArray*)bulletComments{
     if(!_bulletComments){
         _bulletComments = [NSMutableArray array];
     }
     return _bulletComments;
 }
-
+//初始化存储弹幕view的数组
 -(NSMutableArray*)bulletViews{
     if(!_bulletViews){
         _bulletViews = [NSMutableArray array];
