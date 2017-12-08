@@ -29,6 +29,7 @@
         return;
     }
     self.bStopAnimation = YES;
+    //遍历
     [self.bulletViews enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         bulletView *view =obj;
         [view stopAnimation];
@@ -41,19 +42,23 @@
         return;
     }
     self.bStopAnimation = NO;
+    //先将临时存储的数据变量去除
     [self.bulletComments removeAllObjects];
+    //添加新的数据
     [self.bulletComments addObjectsFromArray:self.datasource];
-    
+    //初始化弹幕，随机分配弹幕轨迹
     [self initBulletComments];
 }
 //初始化弹幕，随机分配弹幕轨迹
 -(void)initBulletComments{
-    NSMutableArray *tarjectroys = [NSMutableArray arrayWithArray:@[@(0),@(1),@(2)]];
-    for(int i = 0;i < 3;i++){
+    //创建弹幕轨道数组
+    NSMutableArray *tarjectroys = [NSMutableArray arrayWithArray:@[@(0),@(1),@(2),@(3),@(4),@(5)]];
+    for(int i = 0;i < 6;i++){
         if(self.bulletComments.count > 0){
         //通过随机数获取弹幕
         NSInteger index = arc4random()%tarjectroys.count;
         int tarjectroy = [[tarjectroys objectAtIndex:index] intValue];
+        //把取过的删除
         [tarjectroys removeObjectAtIndex:index];
         //从弹幕数组中逐一取出弹幕
         NSString *comment = [self.bulletComments firstObject];
@@ -72,13 +77,14 @@
     [self.bulletViews addObject:view];
     __weak typeof (view) weakView = view;
     __weak typeof (self) myself = self;
+    //block调用
     view.moveStausblock=^(MoveStatus status){
         if(self.bStopAnimation){
             return;
         }
         switch (status) {
             case Start:{
-                //弹幕开始进入屏幕，姜View加入到弹幕管理的变量中bulletviews
+                //弹幕开始进入屏幕，将View加入到弹幕管理的变量中bulletviews
                 [myself.bulletViews addObject:weakView];
                 break;
             }
@@ -93,6 +99,7 @@
             }
             case End:{
                 //弹幕完全飞出屏幕后从bulletViews中删除，释放资源
+                //判断是否包含当前的veiw
                 if([myself.bulletViews containsObject:weakView]){
                     [weakView stopAnimation];
                     [myself.bulletViews removeObject:weakView];
@@ -116,6 +123,7 @@
     }
     
 }
+//从数据源中取下一个弹幕
 -(NSString*)nextComment{
     if(self.bulletComments.count == 0){
         return nil;
@@ -128,15 +136,25 @@
 }
 -(NSMutableArray*)datasource{
     if(!_datasource){
-        _datasource = [NSMutableArray arrayWithArray:@[@"弹幕1~~~~~",
-                                                       @"弹幕2~~~~~~~~~~~~~~~~~~~~~~~~",
-                                                       @"弹幕3~~~~~~~~~~~~~~~~~",
-                                                       @"弹幕4——————————————",
-                                                       @"弹幕5~~~~~~~~~~~",
-                                                       @"弹幕6~~~~~~~~~~~~~~~~~",
-                                                       @"弹幕7~~~~~~",
-                                                       @"弹幕8~~~~~~~~~~~~~~",
-                                                       @"弹幕9~~~~~~~~~~"
+        _datasource = [NSMutableArray arrayWithArray:@[@"大江东去，",
+                                                       @"浪淘尽，",
+                                                       @"千古风流人物。",
+                                                       @"故垒西边，",
+                                                       @"人道是，",
+                                                       @"三国周郎赤壁。",
+                                                       @"乱石穿空，",
+                                                       @"惊涛拍岸，卷起千堆雪。",
+                                                       @"江山如画，一时多少豪杰。",
+                                                       @"遥想公瑾当年，",
+                                                       @"小乔初嫁了，雄姿英发。",
+                                                       @"羽扇纶巾，",
+                                                       @"谈笑间，",
+                                                       @"樯橹灰飞烟灭。(樯橹 一作：强掳)",
+                                                       @"故国神游，",
+                                                       @"多情应笑我，",
+                                                       @"早生华发。",
+                                                       @"人生如梦，",
+                                                       @"一尊还酹江月。(人生 一作：人间；尊 通：樽)"
                                                        ]];
     }
     return _datasource;

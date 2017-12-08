@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 @class bulletView;
 @interface bulletManager : NSObject
+//回调
 @property(nonatomic,copy)void(^generteViewBlock)(bulletView *view);
+//弹幕开始执行
 -(void)start;
 //弹幕停止执行
 -(void)stop;

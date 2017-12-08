@@ -16,6 +16,7 @@
 		4810A6941FD8E7F30070E8F0 /* bulletView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4810A6931FD8E7F30070E8F0 /* bulletView.m */; };
 		4810A6971FD8E80A0070E8F0 /* bulletManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4810A6961FD8E80A0070E8F0 /* bulletManager.m */; };
 		4810A6991FD9415C0070E8F0 /* 0_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4810A6981FD9415C0070E8F0 /* 0_1.jpg */; };
+		48ABCF231FDA582100719F95 /* 0_13.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 48ABCF221FDA582100719F95 /* 0_13.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		4810A6951FD8E80A0070E8F0 /* bulletManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bulletManager.h; sourceTree = "<group>"; };
 		4810A6961FD8E80A0070E8F0 /* bulletManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bulletManager.m; sourceTree = "<group>"; };
 		4810A6981FD9415C0070E8F0 /* 0_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 0_1.jpg; sourceTree = "<group>"; };
+		48ABCF221FDA582100719F95 /* 0_13.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 0_13.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				4810A6981FD9415C0070E8F0 /* 0_1.jpg */,
+				48ABCF221FDA582100719F95 /* 0_13.jpg */,
 				4810A67E1FD8E65F0070E8F0 /* AppDelegate.h */,
 				4810A67F1FD8E65F0070E8F0 /* AppDelegate.m */,
 				4810A6811FD8E65F0070E8F0 /* ViewController.h */,
@@ -152,6 +155,7 @@
 			files = (
 				4810A68B1FD8E65F0070E8F0 /* LaunchScreen.storyboard in Resources */,
 				4810A6881FD8E65F0070E8F0 /* Assets.xcassets in Resources */,
+				48ABCF231FDA582100719F95 /* 0_13.jpg in Resources */,
 				4810A6991FD9415C0070E8F0 /* 0_1.jpg in Resources */,
 				4810A6861FD8E65F0070E8F0 /* Main.storyboard in Resources */,
 			);
@@ -323,6 +327,7 @@
 				4810A6911FD8E65F0070E8F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

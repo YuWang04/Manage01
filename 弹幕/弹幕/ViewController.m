@@ -17,19 +17,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor orangeColor];
     self.manager = [[bulletManager alloc]init];
     __weak typeof (self)myself = self;
     self.manager.generteViewBlock = ^(bulletView *view){
+        //将弹幕View添加到viewController的view上
         [myself addBulletView:view];
     };
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [btn setTitleColor:[UIColor blueColor] forState:(UIControlStateNormal)];
     [btn setTitle:@"start" forState:UIControlStateNormal];
     btn.frame = CGRectMake(100, 100, 60, 40);
     [btn addTarget:self action:@selector(ClickStart) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     
-    UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [btn2 setTitleColor:[UIColor blueColor] forState:(UIControlStateNormal)];
     [btn2 setTitle:@"stop" forState:UIControlStateNormal];
     btn2.frame = CGRectMake(100, 150, 60, 40);
@@ -42,9 +44,9 @@
     [self.manager stop];
 }
 -(void)ClickStart{
-    [self.manager start];
-    NSLog(@"qqwq");
+    [self.manager start]; 
 }
+//将弹幕View添加到viewController的view上
 -(void)addBulletView:(bulletView *)view{
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     view.frame = CGRectMake(width, 300+view.tarjectroy*40, CGRectGetWidth(view.bounds), CGRectGetHeight(view.bounds));

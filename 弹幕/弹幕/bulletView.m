@@ -20,8 +20,10 @@
 //初始化弹幕
 -(instancetype)initWithConmment:(NSString*)comment{
     if(self = [super init]){
-        self.backgroundColor = [UIColor redColor];
+        //self.backgroundColor = [UIColor redColor];
         self.layer.borderWidth = 15;
+        //设置弹幕的圆角
+        self.layer.cornerRadius = 10;
         //根据传入的comment计算弹幕实际宽度
         NSDictionary *attr = @{NSFontAttributeName:[UIFont systemFontOfSize:14]};
         CGFloat width = [comment sizeWithAttributes:attr].width;
@@ -38,7 +40,7 @@
         self.layer.borderColor = [UIColor yellowColor].CGColor;
         //设置边框的宽度
         self.layer.borderWidth = 0.5;
-        self.photoIgv.image = [UIImage imageNamed:@"0_1.jpg"];
+        self.photoIgv.image = [UIImage imageNamed:@"0_13.jpg"];
     }
     return self;
 }
@@ -57,6 +59,7 @@
      CGFloat speed = wholeWidth/duration;
     CGFloat enterDuration = CGRectGetWidth(self.bounds)/speed;
    
+    //在弹幕进入屏幕之后，执行enterScreen方法
     [self performSelector:@selector(enterScreen) withObject:nil afterDelay:enterDuration];
     
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(enterDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -69,7 +72,9 @@
         frame.origin.x -= wholeWidth;
         self.frame = frame;
     } completion:^(BOOL finished) {
+        //结束后从屏幕上移除
         [self removeFromSuperview];
+        //回调
         if(self.moveStausblock){
             self.moveStausblock(End);
         }
@@ -82,6 +87,7 @@
 }
 //结束动画
 -(void)stopAnimation{
+    //取消performSelector方法的执行
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [self.layer removeAllAnimations];
     [self removeFromSuperview];
