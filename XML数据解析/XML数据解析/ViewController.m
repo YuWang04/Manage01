@@ -18,7 +18,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    //获取沙盒路径
+    NSString *homePath = NSHomeDirectory();
+    NSLog(@"%@",homePath);
+    //获取Document路径
+    NSArray *docuPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [docuPaths lastObject];
+    NSLog(@"%@",documentsPath);
+    //获取Library路径
+    NSArray *libPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSLog(@"libPaths = %@",libPaths);
+    //获取Tmp路径
+    NSString *tmpPath = NSTemporaryDirectory();
+    NSLog(@"tmpPath = %@",tmpPath);
+    //获取路径的各个部分
+    NSArray *arrpath = [tmpPath pathComponents];
+    NSLog(@"arrpath = %@",arrpath);
+    //删除路径的最后一个部分
+    NSString *string = [tmpPath stringByDeletingLastPathComponent];
+    NSLog(@"string = %@",string);
+    //在路径后添加一个部分
+    NSString *filepath = [tmpPath stringByAppendingString:@"name.text"];
+    NSLog(@"filepath = %@",filepath);
 }
 
 
