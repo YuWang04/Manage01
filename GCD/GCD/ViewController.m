@@ -32,6 +32,7 @@
 //    [self GCDtd];
     [self once];
     [self apply];
+    [self group];
 }
 /*
  前四个都是并发队列
@@ -252,5 +253,24 @@
         NSLog(@"--%ld--",index);
     });
 }
-    
+//队列组
+-(void)group{
+    //创建组
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_async(group,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        for(int i = 0;i < 1000; i++){
+        NSLog(@"我爱你");
+        }
+    });
+    dispatch_group_async(group,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        for(int i = 0;i < 1000; i++){
+        NSLog(@"喜欢你");
+        }
+    });
+    //当两个异步操作完成后
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        NSLog(@"还是喜欢你");
+        [self GCDtd];
+    });
+}
 @end
