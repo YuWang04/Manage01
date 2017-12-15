@@ -11,14 +11,14 @@
 #define S_URl @"http://127.0.0.1/0_8.jpg"
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-
+@property (weak, nonatomic) NSOperationQueue *queue;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self concurreatCount];
     
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -28,7 +28,8 @@
 //    [self customOperation];
 //    [self xxx];
 //    [self threadCommunication];
-    [self dependency];
+//    [self dependency];
+    [self suspendedAndCancel];
 }
 
 //NSInvocationOperation
@@ -38,18 +39,18 @@
     [ip start];
 }
 -(void)operation{
-    NSLog(@"---%@---",[NSThread currentThread]);
+    NSLog(@"1和4---%@---",[NSThread currentThread]);
 }
 
 //NSBlockOperation
 -(void)blockOperation{
     //在主线程中完成
     NSBlockOperation *bp = [NSBlockOperation blockOperationWithBlock:^{
-        NSLog(@"---1---%@",[NSThread currentThread]);
+        NSLog(@"2---1---%@",[NSThread currentThread]);
     }];
     //添加的任务在子线程中完成
     [bp addExecutionBlock:^{
-        NSLog(@"---2---%@",[NSThread currentThread]);
+        NSLog(@"2---2---%@",[NSThread currentThread]);
     }];
     [bp start];
     
@@ -76,9 +77,10 @@
         NSURL *url = [NSURL URLWithString:S_URl];
         NSData *data = [NSData dataWithContentsOfURL:url];
         UIImage *image = [UIImage imageWithData:data];
-        NSLog(@"--123--%@",[NSThread currentThread]);
+        NSLog(@"5--123--%@",[NSThread currentThread]);
         [[NSOperationQueue mainQueue]addOperationWithBlock:^{
             self.imageView.image = image;
+            NSLog(@"5--234--%@",[NSThread currentThread]);
         }];
     }];
     
@@ -87,13 +89,13 @@
 -(void)dependency{
     NSOperationQueue *queue = [[NSOperationQueue alloc]init];
     NSBlockOperation *bp1 = [NSBlockOperation blockOperationWithBlock:^{
-        NSLog(@"--1--%@",[NSThread currentThread]);
+        NSLog(@"6--1--%@",[NSThread currentThread]);
     }];
     NSBlockOperation *bp2 = [NSBlockOperation blockOperationWithBlock:^{
-        NSLog(@"--2--%@",[NSThread currentThread]);
+        NSLog(@"6--2--%@",[NSThread currentThread]);
     }];
     NSBlockOperation *bp3 = [NSBlockOperation blockOperationWithBlock:^{
-        NSLog(@"--3--%@",[NSThread currentThread]);
+        NSLog(@"6--3--%@",[NSThread currentThread]);
     }];
     /*添加1、2之间的依赖关系：前者依赖于后者,即2先执行（注：任务之间不能相互依赖）
      [bp1 addDependency:bp2];[bp2 addDependency:bp1];不能同时存在
@@ -102,5 +104,50 @@
     [queue addOperation:bp1];
     [queue addOperation:bp2];
     [queue addOperation:bp3];
+}
+//设置最大并发数
+-(void)concurreatCount{
+    NSOperationQueue *queue = [[NSOperationQueue alloc]init];
+    queue.maxConcurrentOperationCount = 1;
+    [queue addOperationWithBlock:^{
+        for (int i = 0; i < 1000; i++) {
+            NSLog(@"7--1--%@",[NSThread currentThread]);
+        }
+    }];
+    [queue addOperationWithBlock:^{
+        for (int i = 0; i < 1000; i++) {
+            NSLog(@"7--2--%@",[NSThread currentThread]);
+        }
+    }];
+    [queue addOperationWithBlock:^{
+        for (int i = 0; i < 10000; i++) {
+            NSLog(@"7--3--%@",[NSThread currentThread]);
+        }
+    }];
+    [queue addOperationWithBlock:^{
+        for (int i = 0; i < 1000; i++) {
+            NSLog(@"7--4--%@",[NSThread currentThread]);
+        }
+    }];
+    [queue addOperationWithBlock:^{
+        for (int i = 0; i < 1000; i++) {
+            NSLog(@"7--5--%@",[NSThread currentThread]);
+        }
+    }];
+    [queue addOperationWithBlock:^{
+        for (int i = 0; i < 1000; i++) {
+            NSLog(@"7--6--%@",[NSThread currentThread]);
+        }
+    }];
+    self.queue = queue;
+}
+//队列挂起和取消
+-(void)suspendedAndCancel{
+//    if(self.queue.suspended){
+//        self.queue.suspended = NO;
+//    }else{
+//        self.queue.suspended = YES;
+//    }
+    [self.queue cancelAllOperations];
 }
 @end

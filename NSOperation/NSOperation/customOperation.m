@@ -10,6 +10,6 @@
 
 @implementation customOperation
 -(void)main{
-    NSLog(@"---123--%@",[NSThread currentThread]);
+    NSLog(@"3---123--%@",[NSThread currentThread]);
 }
 @end
