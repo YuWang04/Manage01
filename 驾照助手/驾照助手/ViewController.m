@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "SelectView.h"
+#import "FirstViewController.h"
 @interface ViewController ()
 {
     SelectView* _selectView;
@@ -25,8 +26,9 @@
         }
             break;
         
-        case 101:{
-            
+        case 101:{//科目一
+            FirstViewController *vc1 = [[FirstViewController alloc]init];
+            [self.navigationController pushViewController:vc1 animated:YES];
         }
             break;
         case 102:{
