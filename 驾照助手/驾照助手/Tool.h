@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
 @interface Tool : NSObject
+
 +(NSArray *)getAnswerWithString:(NSString *)str;
++(CGSize)getSizeWithString:(NSString *)str With:(UIFont *)font WithSize:(CGSize)size;
 @end

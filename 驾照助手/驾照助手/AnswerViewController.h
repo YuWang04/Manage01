@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface AnswerViewController : UIViewController
-@property(nonatomic,assign)int number;
+@property(nonatomic,assign)NSInteger number;
 @end
