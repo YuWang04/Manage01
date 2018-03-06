@@ -20,7 +20,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    btn.frame = CGRectMake(100, 200, 80, 60);
+    btn.backgroundColor = [UIColor redColor];
+    [btn setTitle:@"点击" forState:UIControlStateNormal];
+    [self.view addSubview:btn];
     UIImage* image = [UIImage imageNamed:@"CS50_activity_image"];
 
     // 告诉系统 使用这个图片的时候 不进行渲染
